@@ -15,7 +15,12 @@ html, body {
 }
 
 .esri-ui-inner-container {
-  inset: 5px 5px 5px 30px;;
+  inset: auto !important;
+  /* Add additional positioning properties */
+  left: 5px !important;
+  top: 12px !important;
+  right: unset !important;
+  bottom: 12px !important;
 }
 
 .esri-scale-bar__line {
