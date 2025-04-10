@@ -117,7 +117,7 @@ require([
             layers: [oceanLayer,backgroundLayer,usStatesLayer,layer] //oceanLayer,
         });
         var map = layerMap;
-        var scale = 16000000;
+        var scale = 18000000;
         // CONUS map
         let conusViewCenterPt = new Point({
             x: -97,
