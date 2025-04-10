@@ -483,6 +483,22 @@ require([
         });
         akView.when(() => {
             console.log("Alaska Map and View are ready");
+            // Watch for changes to the scale property
+            akView.watch("scale", (newScale) => {
+              console.log("akView scale changed:", newScale);
+
+              // Update the akScaleValue span
+              const akScaleValueSpan = document.getElementById("akScaleValue");
+              if (akScaleValueSpan) {
+                akScaleValueSpan.textContent = Math.round(newScale).toLocaleString();
+              }
+            });
+
+            // Initialize the scale value on page load
+            const akScaleValueSpan = document.getElementById("akScaleValue");
+            if (akScaleValueSpan) {
+              akScaleValueSpan.textContent = Math.round(akView.scale).toLocaleString();
+            }            
             }).catch((error) => {
             console.error("Error loading the Alaska map view:", error);
             });
