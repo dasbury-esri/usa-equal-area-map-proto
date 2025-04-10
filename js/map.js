@@ -5,8 +5,11 @@ require([
     "esri/geometry/Point",
     "esri/layers/FeatureLayer",
     "esri/geometry/projection",
-    "esri/geometry/SpatialReference"
-  ], (MapView, Map, WebMap, Point, FeatureLayer, projection, SpatialReference) => {
+    "esri/geometry/SpatialReference",
+    "esri/Graphic", 
+    "esri/core/reactiveUtils", 
+    "esri/core/promiseUtils"
+  ], (MapView, Map, WebMap, Point, FeatureLayer, projection, SpatialReference, Graphic, reactiveUtils, promiseUtils) => {
     projection.load().then(function() {
         //Projection parameters              
         {
@@ -123,7 +126,7 @@ require([
             wkid: 4326  
             }
         });
-        const view = new MapView({
+        const mainView = new MapView({
             container: "mainViewDiv",
             map: map,
             popup: {
@@ -281,7 +284,7 @@ require([
             }
         });
       
-        view.when(() => {
+        mainView.when(() => {
           console.log("CONUS Map and View are ready");
           }).catch((error) => {
           console.error("Error loading the CONUS map view:", error);
@@ -311,6 +314,96 @@ require([
             }).catch((error) => {
             console.error("Error loading the HI map view:", error);
             });
+        //remove zoom widgets from popup
+        mainView.popup.viewModel.includeDefaultActions = false;
+        akView.popup.viewModel.includeDefaultActions = false;
+        overView.popup.viewModel.includeDefaultActions = false;
+        guView.popup.viewModel.includeDefaultActions = false;
+        asView.popup.viewModel.includeDefaultActions = false;
+        hiView.popup.viewModel.includeDefaultActions = false;
         
+        // Sync Alaska scale
+        akView.when(() => {
+          syncScale(akView, hiView);
+          syncScale(akView, asView);
+          syncScale(akView, guView);
+          syncScale(akView, mainView);
+        });
+
+        // Add an extent box to the overview map from the GU/MP map
+        overView.when(() => {
+          guView.when(() => {
+            guExtentSetup();
+            syncScale(guView, akView);
+            syncScale(guView, asView);
+            syncScale(guView, hiView);
+            syncScale(guView, mainView);
+          });
+        });
+        const guExtentDebouncer = promiseUtils.debounce(async () => {
+          if (guView.stationary) {
+            await overView.goTo({
+              center: guView.center,
+              scale:
+                guView.scale * 2 *
+                Math.max(
+                  guView.width / overView.width,
+                  guView.height / overView.height
+                )
+            });
+          }
+        });
+        function guExtentSetup() {
+          const guExtentGraphic = new Graphic({
+            geometry: null,
+            symbol: {
+              type: "simple-fill",
+              color: [0, 0, 0, 0],
+              outline: {  // autocasts as new SimpleLineSymbol()
+                color: [64, 64, 64, 0.5],
+                width: "0.5px"
+              }
+            }
+          });
+          overView.graphics.add(guExtentGraphic);
+
+          reactiveUtils.watch(
+            () => guView.extent,
+            (extent) => {
+              // Sync the overview map location
+              // whenever the guView is stationary
+              guExtentDebouncer().then(() => {
+                guExtentGraphic.geometry = extent;
+              });
+            },
+            {
+              initial: true
+            }
+          );
+        }
+        // Sync scales across insets
+        function syncScale(view, targetView) {
+          view.watch("scale", function(newScale) {
+            console.log("Inset changed: " + newScale);
+            targetView.set({ scale: newScale });
+          });
+        }
+        // Sync scale between mainView and other views
+        mainView.watch("scale", (newScale) => {
+          console.log("Main changed:", newScale);
+          localStorage.setItem("mainViewScale", newScale); // Store the scale in localStorage
+          const storedScale = localStorage.getItem("mainViewScale");
+          console.log("Stored scale:", storedScale);
+          if (storedScale) {
+            const scale = parseFloat(storedScale);
+            console.log("Updating scale:", scale);
+
+            akView.set({ scale });
+            console.log("AK scale: ", akView.scale)
+            guView.set({ scale });
+            asView.set({ scale });
+            hiView.set({ scale });
+          }
+        });         
     });
   });
