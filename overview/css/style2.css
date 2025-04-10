@@ -17,7 +17,7 @@ html, body {
 .esri-scale-bar__line {
   background-color: seagreen;
   display: flex;
-  height: 2.5vh;
+  height: 1.5vh;
 }
 
 .esri-scale-bar__line--top:before {
