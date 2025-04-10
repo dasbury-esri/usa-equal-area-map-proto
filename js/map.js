@@ -148,7 +148,7 @@ require([
 
         // Alaska map
         let akViewCenterPt = new Point({
-          x: -162,
+          x: -161.5,
           y: 62.5,
           spatialReference: {
             wkid: 4326  
