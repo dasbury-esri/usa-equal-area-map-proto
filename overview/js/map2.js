@@ -161,7 +161,7 @@ require([
           layers: [oceanLayer,latlongLayer, latlong180Layer, backgroundLayer,usStatesLayer, layer]// precipImageryLayer] //oceanLayer,
         });
         var map = layerMap;
-        var scale = 30000000;
+        var scale = 50000000;
         // CONUS map
         // Set the center point for the view
         let conusViewCenterPt = new Point({
