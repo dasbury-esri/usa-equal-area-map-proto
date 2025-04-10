@@ -27,7 +27,7 @@ html, body {
   top: 0;
   left: 0;
   height: 100%;
-  width: calc(50% * 16/9); /* Dynamically calculate width */
+  width: calc(50% * (9/16)); /* Dynamically calculate width */
   background-color: white;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease-in-out;
