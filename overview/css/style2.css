@@ -24,8 +24,8 @@ html, body {
   position: absolute;
   top: 0;
   left: 0;
-  height: 100%;
-  width: 50%; /* Covers a percentage of the screen */
+  height: 100vh;
+  width: 50vh; /* Covers a percentage of the screen */
   background-color: white;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease-in-out;
