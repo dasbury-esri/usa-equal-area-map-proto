@@ -14,23 +14,29 @@ html, body {
   overflow: hidden;
 }
 
+.esri-ui-inner-container {
+  inset: 5px 5px 5px 30px;;
+}
+
 .esri-scale-bar__line {
-  background-color: seagreen;
-  display: flex;
   height: 1.5vh;
 }
 
+.esri-scale-bar__label {
+  font-size: 10px;
+}
+
 .esri-scale-bar__line--top:before {
-  height: 100%; /* Adjust height based on aspect ratio */
+  height: 100%; 
 }
 .esri-scale-bar__line--top:after {
-  height: 100%; /* Adjust height based on aspect ratio */
+  height: 100%; 
 }
 .esri-scale-bar__line--bottom:before {
-  height: 100%; /* Adjust height based on aspect ratio */
+  height: 100%; 
 }
 .esri-scale-bar__line--bottom:after {
-  height: 100%; /* Adjust height based on aspect ratio */
+  height: 100%; 
 }
 
 .esri-scale-bar__line {
