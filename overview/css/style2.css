@@ -15,7 +15,26 @@ html, body {
 }
 
 .esri-scale-bar__line {
-    background-color: rgba(255, 255, 255, 0);
+  background-color: seagreen;
+  display: flex;
+  height: 2.5vh;
+}
+
+.esri-scale-bar__line--top:before {
+  height: 100%; /* Adjust height based on aspect ratio */
+}
+.esri-scale-bar__line--top:after {
+  height: 100%; /* Adjust height based on aspect ratio */
+}
+.esri-scale-bar__line--bottom:before {
+  height: 100%; /* Adjust height based on aspect ratio */
+}
+.esri-scale-bar__line--bottom:after {
+  height: 100%; /* Adjust height based on aspect ratio */
+}
+
+.esri-scale-bar__line {
+  background-color: rgba(255, 255, 255, 0);
 }
 
 .calcite-shell-panel {
