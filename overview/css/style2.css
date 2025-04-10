@@ -57,7 +57,7 @@ html, body {
   top: 0;
   left: 0;
   height: 100%;
-  aspect-ratio: 7 / 9;
+  aspect-ratio: 8 / 9;
   background-color: white;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease-in-out;
