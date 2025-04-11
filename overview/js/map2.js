@@ -58,17 +58,38 @@ require([
                         //id:"0ddda259c5c443cc9c5927132644b961" // NOAA Maritime Boundaries (Map Service) 
                         //id:"e2e7bcb7fdaf41f2a97b5f540e0d5433" // 117th Congressional Districts
                         id: "6100fd30484645e6b3ec7006d95aa7b8" // 119th Congressional Districts
+                        //id: "2706fbe2d7c74b488a609938df8f9578" // USA Airport Areas (Esri Data and Maps)
                         //id:"dd834ef507244f96baa6b29eab5dd396" // 2019 Population density
             //          id: "67ab7f7c535c4687b6518e6d2343e8a2" // Ocean basemap
                         //id: "055f54c736c44955a2f2e808df5280b1" // National Water Model Maximum Flow (10 Day Forecast)
                       }
         });
-        var precipImageryLayer = new ImageryLayer({
-            id: "precipImageryLayer",
+        var airportRunways = new FeatureLayer({ 
+          id: "airportRunways",
+          portalItem: {
+            id: "08e8e12f50e344e5a23484b86735980d" // USA Airport Runways
+          },
+          popupEnabled: false,
+          // Set the minimum and maximum scale for the layer
+          minScale: 1000000,
+          maxScale: 1000
+        });
+        var airportGrounds = new FeatureLayer({ 
+          id: "airportGrounds",
+          portalItem: {
+            id: "88048f0a1fbd4a84b7628a8d0c082b78" // USA Airport Grounds
+          },
+          // Set the minimum and maximum scale for the layer
+          minScale: 1000000,
+          maxScale: 1000
+        });
+        var imageryLayer = new ImageryLayer({
+            id: "imageryLayer",
             portalItem:{
-              id:"901cc91db11f4ec79b21decbf5677aaf"
-            },
-            title: "Precipitation Imagery Layer"
+              //id: "901cc91db11f4ec79b21decbf5677aaf" // Precip Imagery
+              id: "275e8cef559e4d75a0f10ba93d553ecd" // Black Marble VIIRS composite (Black and White)
+              //id: "2232d6e5d932492292072f941dcc4a3b" // Black Marble VIIRS composite (Blue / Yellow)
+            }
         });
         var latlongLayer = new FeatureLayer({
             id: "latlongLayer",
@@ -160,7 +181,7 @@ require([
         // If no parameters are specified in the url, display the default map
         var layer = defaultLayer;
         var layerMap = new Map({
-          layers: [oceanLayer,latlongLayer, latlong180Layer, backgroundLayer,usStatesLayer, layer]// precipImageryLayer] //oceanLayer,
+          layers: [oceanLayer,latlongLayer, latlong180Layer, backgroundLayer, usStatesLayer, layer, airportGrounds, airportRunways] //imageryLayer] //oceanLayer,
         });
         var map = layerMap;
         var scale = 24000000;
@@ -336,6 +357,18 @@ require([
         overView.ui.add(ovScaleBar, {
           position: "bottom-left"
         });
+        // Turn off unwanted layers in GU/MP
+        overView.on("layerview-create", (event) => {
+          if (event.layer.id === "imageryLayer") {
+            event.layerView.visible = false;
+          }
+          else if (event.layer.id === "airportRunways") {
+            event.layerView.visible = false;
+          }
+          else if (event.layer.id === "airportGrounds") {
+            event.layerView.visible = false;
+          }
+        });          
 /*        let ovCompass = new Compass({
           view: overView
         });
@@ -497,6 +530,20 @@ require([
         // Resolve the Promise when mainView is ready
         mainView.when(() => {
           resolve(mainView);
+          // Watch for changes to the scale property
+          mainView.watch("scale", (newScale) => {
+            console.log("mainView scale changed:", newScale);
+            // Update the mainViewScaleValue span
+            const mainViewScaleValueSpan = document.getElementById("mainViewScaleValue");
+            if (mainViewScaleValueSpan) {
+              mainViewScaleValueSpan.textContent = Math.round(newScale).toLocaleString();
+            }
+          });
+          // Initialize the scale value on page load
+          const mainViewScaleValueSpan = document.getElementById("mainViewScaleValue");
+          if (mainViewScaleValueSpan) {
+            mainViewScaleValueSpan.textContent = Math.round(mainView.scale).toLocaleString();
+          }           
       /*    const attributionWidget = mainView.ui.find("attribution");
           // Append the attribution widget to the custom container
           const customContainer = document.getElementById("customAttributionText");
@@ -756,5 +803,5 @@ require([
             }
           });
     });
-});
+  });
 });
