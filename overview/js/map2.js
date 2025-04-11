@@ -44,25 +44,26 @@ require([
 
         var defaultLayer = new FeatureLayer({
           id: "defaultLayer",
-            //          url: "https://mtgis-server.geo.census.gov/arcgis/rest/services/BAS_Viewer/BAS22_Participation/MapServer",
-                      portalItem: {
-                        //id:"6ac5e325468c4cb9b905f1728d6fbf0f" // US Federally supported hospital points (includes Palau)
-                        //id:"df53bb7c871b4e13a59e4310a581a917" // County boundaries from HiFLD
-                        //id:"49c25e0ce50340e08fcfe51fe6f26d1e" // Covid trends
-                        //id:"c93f8a9f2a614ff8a31db732636eff9b" // 2022 Zip Codes from Esri Data/Maps 
-                        //id:"cb1886ff0a9d4156ba4d2fadd7e8a139" // Current wind station data
-                        //id:"d957997ccee7408287a963600a77f61f" // Current wildfires
-                        //id:"5e92f2e0930848faa40480bcb4fdc44e" // USA Federal Lands
-                        //id:"79461a1ec0974301bde274177c7108bd" // Earthquake archive
-                        //id:"f097586198b94149965206a8f2471dbf" // USA Territorial Sea Boundary (requires subscriber token)
-                        //id:"0ddda259c5c443cc9c5927132644b961" // NOAA Maritime Boundaries (Map Service) 
-                        //id:"e2e7bcb7fdaf41f2a97b5f540e0d5433" // 117th Congressional Districts
-                        id: "6100fd30484645e6b3ec7006d95aa7b8" // 119th Congressional Districts
-                        //id: "2706fbe2d7c74b488a609938df8f9578" // USA Airport Areas (Esri Data and Maps)
-                        //id:"dd834ef507244f96baa6b29eab5dd396" // 2019 Population density
-            //          id: "67ab7f7c535c4687b6518e6d2343e8a2" // Ocean basemap
-                        //id: "055f54c736c44955a2f2e808df5280b1" // National Water Model Maximum Flow (10 Day Forecast)
-                      }
+            //url: "https://mtgis-server.geo.census.gov/arcgis/rest/services/BAS_Viewer/BAS22_Participation/MapServer",
+          portalItem: {
+            //id:"6ac5e325468c4cb9b905f1728d6fbf0f" // US Federally supported hospital points (includes Palau)
+            //id:"df53bb7c871b4e13a59e4310a581a917" // County boundaries from HiFLD
+            //id:"49c25e0ce50340e08fcfe51fe6f26d1e" // Covid trends
+            //id:"c93f8a9f2a614ff8a31db732636eff9b" // 2022 Zip Codes from Esri Data/Maps 
+            //id:"cb1886ff0a9d4156ba4d2fadd7e8a139" // Current wind station data
+            //id:"d957997ccee7408287a963600a77f61f" // Current wildfires
+            //id:"5e92f2e0930848faa40480bcb4fdc44e" // USA Federal Lands
+            //id:"79461a1ec0974301bde274177c7108bd" // Earthquake archive
+            //id:"f097586198b94149965206a8f2471dbf" // USA Territorial Sea Boundary (requires subscriber token)
+            //id:"0ddda259c5c443cc9c5927132644b961" // NOAA Maritime Boundaries (Map Service) 
+            //id:"e2e7bcb7fdaf41f2a97b5f540e0d5433" // 117th Congressional Districts
+            id: "6100fd30484645e6b3ec7006d95aa7b8" // 119th Congressional Districts
+            //id: "2706fbe2d7c74b488a609938df8f9578" // USA Airport Areas (Esri Data and Maps)
+            //id:"dd834ef507244f96baa6b29eab5dd396" // 2019 Population density
+            //id: "67ab7f7c535c4687b6518e6d2343e8a2" // Ocean basemap
+            //id: "055f54c736c44955a2f2e808df5280b1" // National Water Model Maximum Flow (10 Day Forecast)
+          },
+          sharedViews: true,
         });
         var airportRunways = new FeatureLayer({ 
           id: "airportRunways",
@@ -72,7 +73,8 @@ require([
           popupEnabled: false,
           // Set the minimum and maximum scale for the layer
           minScale: 1000000,
-          maxScale: 1000
+          maxScale: 1000,
+          sharedViews: true,
         });
         var airportGrounds = new FeatureLayer({ 
           id: "airportGrounds",
@@ -81,7 +83,8 @@ require([
           },
           // Set the minimum and maximum scale for the layer
           minScale: 1000000,
-          maxScale: 1000
+          maxScale: 1000,
+          sharedViews: true,
         });
         var imageryLayer = new ImageryLayer({
             id: "imageryLayer",
@@ -89,7 +92,8 @@ require([
               //id: "901cc91db11f4ec79b21decbf5677aaf" // Precip Imagery
               id: "275e8cef559e4d75a0f10ba93d553ecd" // Black Marble VIIRS composite (Black and White)
               //id: "2232d6e5d932492292072f941dcc4a3b" // Black Marble VIIRS composite (Blue / Yellow)
-            }
+            },
+            sharedViews: true,
         });
         var latlongLayer = new FeatureLayer({
             id: "latlongLayer",
@@ -97,6 +101,7 @@ require([
               id:"278e3884c50649baba4910a6d7b39922"
             },
             popupEnabled: false,
+            sharedViews: true,
         });
         var latlong180Layer = new FeatureLayer({
             id: "latlong180Layer",
@@ -104,20 +109,23 @@ require([
               id:"3d47090c1ecc4fb1a84458cbc0274888"
             },
             popupEnabled: false,
+            sharedViews: true,
         });
         var eezLayer = new WFSLayer({
           id: "eezLayer",
           portalItem:{
             id:"fb31317c56b8485b967f5eccd1371ed3",
           },
-          definitionExpression: "sovereign1 = 'United States' OR sovereign2 = 'United States'"
+          definitionExpression: "sovereign1 = 'United States' OR sovereign2 = 'United States'",
+          sharedViews: true,
         });
         var freeAssocLayer = new WFSLayer({
           id: "freeAssocLayer",
           portalItem:{
             id:"fb31317c56b8485b967f5eccd1371ed3",
           },
-          definitionExpression: "sovereign1 = 'Palau' OR sovereign1 = 'Micronesia' OR sovereign1 = 'Marshall Islands'"
+          definitionExpression: "sovereign1 = 'Palau' OR sovereign1 = 'Micronesia' OR sovereign1 = 'Marshall Islands'",
+          sharedViews: true,
         });
 
         var backgroundLayer = new FeatureLayer({
@@ -138,6 +146,7 @@ require([
               }
             },
             popupEnabled: false,
+            sharedViews: true,
           });
   
           var usStatesLayer = new FeatureLayer({
@@ -158,6 +167,7 @@ require([
               }
             },
             popupEnabled: false,
+            sharedViews: true,
           });
   
           var oceanLayer = new FeatureLayer({
@@ -176,7 +186,8 @@ require([
                   width: 0
                 }
               }
-            }
+            },
+            sharedViews: true,
           }); 
         // If no parameters are specified in the url, display the default map
         var layer = defaultLayer;
@@ -316,8 +327,8 @@ require([
         });
         // Overview map
         let overViewCenterPt = new Point({
-            x: -154,
-            y: 23,
+            x: -145,
+            y: 31,
             spatialReference: {
               wkid: 4326  
             }
