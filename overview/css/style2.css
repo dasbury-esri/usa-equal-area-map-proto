@@ -33,6 +33,10 @@ html, body {
   bottom: 8px !important;
 }
 
+.esri-ui-bottom-left {
+  transition: transform 0.3s ease-in-out; /* Smooth transition */
+}
+
 .esri-widget {
   line-height: 1em;
 }

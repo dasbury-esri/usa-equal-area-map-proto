@@ -1,4 +1,5 @@
 window.mainViewReady = new Promise((resolve, reject) => {
+
 require([
     "esri/views/MapView",
     "esri/Map",
@@ -280,7 +281,12 @@ require([
         akView.ui.add(akCompass, {
           position: "top-right",
         });*/
-
+        // Make akView globally accessible
+        window.akView = akView;
+        console.log("akView has been attached to the window object:", window.akView);
+        if (typeof akView === "undefined") {
+          console.error("akView is not defined. Ensure map2.js is loaded and akView is attached to the window object.");
+        }
         var overviewMap = new WebMap({
             portalItem: {
                 //id: "84fde078b9c7464a94bb890c24aee634" // US and EEZs
@@ -491,14 +497,14 @@ require([
         // Resolve the Promise when mainView is ready
         mainView.when(() => {
           resolve(mainView);
-          const attributionWidget = mainView.ui.find("attribution");
+      /*    const attributionWidget = mainView.ui.find("attribution");
           // Append the attribution widget to the custom container
           const customContainer = document.getElementById("customAttributionText");
           if (customContainer) {
             customContainer.appendChild(attributionWidget.container);
           } else {
             console.error("Custom attribution container not found.");
-          }          
+          }    */      
         }).catch((error) => {
           console.error("Error loading the mainView:", error);
           reject(error);
