@@ -1,3 +1,4 @@
+window.mainViewReady = new Promise((resolve, reject) => {
 require([
     "esri/views/MapView",
     "esri/Map",
@@ -190,6 +191,12 @@ require([
             components: ["attribution"]
           }
         });
+        // Make mainView globally accessible
+        window.mainView = mainView;
+        console.log("mainView has been attached to the window object:", window.mainView);
+        if (typeof mainView === "undefined") {
+          console.error("mainView is not defined. Ensure map2.js is loaded and mainView is attached to the window object.");
+        }
         let scaleBar = new ScaleBar({
           view: mainView,
           unit: "dual" // Options are metric, imperial, or dual
@@ -481,6 +488,13 @@ require([
             event.layerView.visible = false;
           }  
         });
+        // Resolve the Promise when mainView is ready
+        mainView.when(() => {
+          resolve(mainView);
+        }).catch((error) => {
+          console.error("Error loading the mainView:", error);
+          reject(error);
+        });        
         akView.when(() => {
             console.log("Alaska Map and View are ready");
             // Watch for changes to the scale property
@@ -728,4 +742,5 @@ require([
             }
           });
     });
+});
 });
