@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         drawerContainer.classList.remove("drawer-closed");
                         drawerContainer.classList.add("drawer-open");
                         // Update the center point of the mainView map
-                        if (typeof mainView !== "undefined") {
+                        if (typeof mainView !== "undefined" && mainView.scale === 24000000) {
                             mainView.goTo({
                                 center: [-115, 36], // Example center point (longitude, latitude)
                             }).then(() => {
