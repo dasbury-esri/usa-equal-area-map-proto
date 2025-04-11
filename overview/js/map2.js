@@ -289,8 +289,8 @@ require([
         });
         // Overview map
         let overViewCenterPt = new Point({
-            x: -156,
-            y: 21,
+            x: -154,
+            y: 23,
             spatialReference: {
               wkid: 4326  
             }
