@@ -109,7 +109,7 @@ html, body {
   top: 0;
   left: 0;
   height: 100%;
-  aspect-ratio: 7 / 9;
+  aspect-ratio: 6.5 / 9;
   background-color: white;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease-in-out;
@@ -162,7 +162,7 @@ align-items: flex-start; /* Align text to the top */
 #akViewDiv {
   padding: 0;
   margin: 0;
-  height: 42%;
+  height: 45%;
   width: 100%;
   border-right: solid;
   border-bottom: solid;
@@ -183,7 +183,7 @@ font-weight: bold; /* Make text bold */
 #overViewDiv {
   padding: 0;
   margin: 0;
-  height: 37%;
+  height: 34%;
   width: 100%;
   border-right: solid;
   border-bottom: solid;
