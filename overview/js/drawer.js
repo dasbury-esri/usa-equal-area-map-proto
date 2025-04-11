@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         // Update the center point of the mainView map
                         if (typeof mainView !== "undefined") {
                             mainView.goTo({
-                                center: [-120, 36], // Example center point (longitude, latitude)
+                                center: [-115, 36], // Example center point (longitude, latitude)
                                 zoom: 4 // Optional: Adjust zoom level
                             }).then(() => {
                                 console.log("mainView center updated to [-120, 40]");
