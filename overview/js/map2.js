@@ -188,7 +188,7 @@ require([
           scale: scale,
           spatialReference: conusSR,
           ui: {
-            components: ["attribution"]
+            components: []
           }
         });
         // Make mainView globally accessible
@@ -491,6 +491,14 @@ require([
         // Resolve the Promise when mainView is ready
         mainView.when(() => {
           resolve(mainView);
+          const attributionWidget = mainView.ui.find("attribution");
+          // Append the attribution widget to the custom container
+          const customContainer = document.getElementById("customAttributionText");
+          if (customContainer) {
+            customContainer.appendChild(attributionWidget.container);
+          } else {
+            console.error("Custom attribution container not found.");
+          }          
         }).catch((error) => {
           console.error("Error loading the mainView:", error);
           reject(error);

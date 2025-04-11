@@ -14,6 +14,16 @@ html, body {
   overflow: hidden;
 }
 
+#customAttributionContainer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 5px;
+  background-color: rgba(198, 10, 10, 0.8);
+  border-radius: 5px;
+  font-size: 12px;
+}
+
 .esri-ui-inner-container {
   inset: auto !important;
   /* Add additional positioning properties */
