@@ -100,7 +100,7 @@ html, body {
   top: 62%; /* Adjust as needed */
   right: -60px; /* Place outside the drawer */
   width: 60px;
-  height: 27%;
+  height: 30%;
   background-color: hex(0xEBEBEB);
   color: black;
   border: none;

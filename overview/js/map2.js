@@ -305,7 +305,7 @@ require([
               }
             },
             center: overViewCenterPt,
-            scale: 102000000,
+            scale: 112000000,
             rotation: 20,
             constraints: {
               rotationEnabled: false
@@ -486,14 +486,12 @@ require([
             // Watch for changes to the scale property
             akView.watch("scale", (newScale) => {
               console.log("akView scale changed:", newScale);
-
               // Update the akScaleValue span
               const akScaleValueSpan = document.getElementById("akScaleValue");
               if (akScaleValueSpan) {
                 akScaleValueSpan.textContent = Math.round(newScale).toLocaleString();
               }
             });
-
             // Initialize the scale value on page load
             const akScaleValueSpan = document.getElementById("akScaleValue");
             if (akScaleValueSpan) {
@@ -504,6 +502,20 @@ require([
             });
         overView.when(() => {
             console.log("Overview Map and View are ready");
+            // Watch for changes to the scale property
+            overView.watch("scale", (newScale) => {
+              console.log("overView scale changed:", newScale);
+              // Update the overViewScaleValue span
+              const overViewScaleValueSpan = document.getElementById("overViewScaleValue");
+              if (overViewScaleValueSpan) {
+                overViewScaleValueSpan.textContent = Math.round(newScale).toLocaleString();
+              }
+            });
+            // Initialize the scale value on page load
+            const overViewScaleValueSpan = document.getElementById("overViewScaleValue");
+            if (overViewScaleValueSpan) {
+              overViewScaleValueSpan.textContent = Math.round(overView.scale).toLocaleString();
+            }  
             }).catch((error) => {
             console.error("Error loading the Overview map view:", error);
             });
