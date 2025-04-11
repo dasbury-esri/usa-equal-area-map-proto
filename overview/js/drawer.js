@@ -27,9 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         if (typeof mainView !== "undefined") {
                             mainView.goTo({
                                 center: [-115, 36], // Example center point (longitude, latitude)
-                                zoom: 4 // Optional: Adjust zoom level
                             }).then(() => {
-                                console.log("mainView center updated to [-120, 40]");
+                                console.log("mainView center updated to [-115, 36]");
                             }).catch((error) => {
                                 console.error("Error updating mainView center:", error);
                             });
@@ -41,7 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         if (typeof mainView !== "undefined") {
                             mainView.goTo({
                                 center: [-97, 38], // Reset to original center point
-                                zoom: 5 // Optional: Adjust zoom level
                             }).then(() => {
                                 console.log("mainView center reset to [-97, 38]");
                             }).catch((error) => {
