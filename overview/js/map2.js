@@ -258,7 +258,7 @@ require([
         var mainViewScale = mainView.scale;
         // Alaska map
         let akViewCenterPt = new Point({
-            x: -156,
+            x: -161.5,
             y: 62.5,
             spatialReference: {
               wkid: 4326  
@@ -327,8 +327,8 @@ require([
         });
         // Overview map
         let overViewCenterPt = new Point({
-            x: -145,
-            y: 31,
+            x: -154,
+            y: 23,
             spatialReference: {
               wkid: 4326  
             }
@@ -350,7 +350,7 @@ require([
               }
             },
             center: overViewCenterPt,
-            scale: 130000000,
+            scale: 110000000,
             rotation: 20,
             constraints: {
               rotationEnabled: false
